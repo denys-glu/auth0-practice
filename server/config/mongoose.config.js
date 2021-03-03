@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const dbName = "auth0-practice";
 const dbPass = process.env.DB_PASSWORD;
-console.log('dbPass', dbPass)
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
 mongoose.connect(`mongodb+srv://busabro:${dbPass}@myshinycluster.qqcs1.mongodb.net/${dbName}?retryWrites=true&w=majority`, {
