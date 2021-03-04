@@ -13,18 +13,16 @@ const ProjectSchema = new Schema({
     },
     description: {
         type: String,
-        required: [true, "Description is required!"],
+        required: [true, "Description is required!lololol"],
         minlength: [10, "Description should be longer than 10 characters!"],
         maxlength: [1000, "Description should not be longer than 1000 characters!"]
     },
     status: { type: String, default: "0" },
     sortId: { type: Number, default: 0 },
-    tickets: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "TicketSchema"
-        }
-    ]
+    tickets: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "TicketSchema"
+    }]
 }, { timestamps: true });
 
 const Project = mongoose.model("ProjectSchema", ProjectSchema);

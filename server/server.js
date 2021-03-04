@@ -9,7 +9,7 @@ const port = 8000;
 // This will fire our mongoose.connect statement to initialize our database connection
 require("./config/mongoose.config");
 
-app.use(
+app.use(cors(),
     jwt({
         // Dynamically provide a signing key
         // based on the kid in the header and 
@@ -25,9 +25,9 @@ app.use(
         audience: 'TestingNodeJSAPI',
         issuer: `http://localhost:3000/`,
         algorithms: ['RS256']
-    }).unless({ path: ['/api/tickets/new'] }),
+    }).unless({ path: ['/api/tickets/new', '/api/projects/new'] }),
     express.json(),
-    cors(),
+
     express.urlencoded({ extended: true }));
 
 app.use(function(err, req, res, next) {
