@@ -15,7 +15,16 @@ module.exports.checkJwt = jwt({
     }),
 
     // Validate the audience and the issuer.
-    audience: 'TestingNodeJSAPI',
+    audience: 'TestingNodeJSAPI_REACT_SIDE',
     issuer: `http://localhost:3000/`,
     algorithms: ['RS256']
 });
+
+module.exports.JWTErrorHandler = function(err, req, res, next) {
+    if (err.name === 'UnauthorizedError') {
+        res.status(401).send({ message: err.message });
+
+        return;
+    }
+    next();
+}

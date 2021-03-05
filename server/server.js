@@ -9,36 +9,36 @@ const port = 8000;
 // This will fire our mongoose.connect statement to initialize our database connection
 require("./config/mongoose.config");
 
-app.use(cors(),
-    jwt({
-        // Dynamically provide a signing key
-        // based on the kid in the header and 
-        // the signing keys provided by the JWKS endpoint.
-        secret: jwksRsa.expressJwtSecret({
-            cache: true,
-            rateLimit: true,
-            jwksRequestsPerMinute: 5,
-            jwksUri: `http://localhost:3000/.well-known/jwks.json`
-        }),
+app.use(cors(), express.urlencoded({ extended: true }), express.json());
 
-        // Validate the audience and the issuer.
-        audience: 'TestingNodeJSAPI',
-        issuer: `http://localhost:3000/`,
-        algorithms: ['RS256']
-    }).unless({ path: ['/api/tickets/new', '/api/projects/new'] }),
-    express.json(),
+// app.use(jwt({
+//     // Dynamically provide a signing key
+//     // based on the kid in the header and 
+//     // the signing keys provided by the JWKS endpoint.
+//     secret: jwksRsa.expressJwtSecret({
+//         cache: true,
+//         rateLimit: true,
+//         jwksRequestsPerMinute: 5,
+//         jwksUri: `http://localhost:3000/.well-known/jwks.json`
+//     }),
 
-    express.urlencoded({ extended: true }));
+//     // Validate the audience and the issuer.
+//     audience: 'TestingNodeJSAPI_REACT_SIDE',
+//     issuer: `http://localhost:3000/`,
+//     algorithms: ['RS256']
+// }).unless({ path: ['/api/tickets/new', '/api/projects/new'] }));
 
-app.use(function(err, req, res, next) {
-    console.log('err', err)
-    if (err.name === 'UnauthorizedError') {
-        res.status(err.status).send({ message: err.message });
+// app.use(function(err, req, res, next) {
+//     // console.log('req', req)
+//     if (err.name === 'UnauthorizedError') {
+//         console.log("================================================")
+//         console.log('err', err)
+//         res.status(401).send({ message: err.message });
 
-        return;
-    }
-    next();
-});
+//         return;
+//     }
+//     next();
+// });
 // This is where we import the users routes function from our user.routes.js file
 require("./routes/myKanban.routes")(app);
 
