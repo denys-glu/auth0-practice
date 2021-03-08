@@ -1,9 +1,9 @@
-const mongoose = require("mongoose");
+import mongoose, { Schema, model } from "mongoose";
+import { ITicket } from "../interfaces/interfaces";
+
 const AutoIncrement = require('mongoose-sequence')(mongoose);
-const Schema = mongoose.Schema;
 
-
-const TicketSchema = new Schema({
+const TicketSchema: Schema = new Schema({
     name: {
         type: String,
         required: [true, "Name is required!"],
@@ -25,6 +25,6 @@ const TicketSchema = new Schema({
 TicketSchema.plugin(AutoIncrement, {inc_field: "id"})
 TicketSchema.plugin(AutoIncrement, { inc_field: "priority"})
 
-const Ticket = mongoose.model("TicketSchema", TicketSchema);
+const Ticket = model<ITicket>("TicketSchema", TicketSchema);
 
-module.exports = Ticket;
+export default Ticket;

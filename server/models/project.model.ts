@@ -1,9 +1,8 @@
-const mongoose = require("mongoose");
+import mongoose, { Schema } from "mongoose";
+import { IProject } from "../interfaces/interfaces";
 const AutoIncrement = require('mongoose-sequence')(mongoose);
-const Schema = mongoose.Schema;
 
-
-const ProjectSchema = new Schema({
+const ProjectSchema: Schema = new Schema({
     name: {
         type: String,
         required: [true, "Name is required!"],
@@ -22,9 +21,13 @@ const ProjectSchema = new Schema({
     tickets: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "TicketSchema"
+    }],
+    users: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "UserSchema"
     }]
 }, { timestamps: true });
 
-const Project = mongoose.model("ProjectSchema", ProjectSchema);
+const Project = mongoose.model<IProject>("ProjectSchema", ProjectSchema);
 
 module.exports = Project;

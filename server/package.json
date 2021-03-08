@@ -5,12 +5,16 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "nodemon server"
+        "start": "nodemon dist/index.js",
+        "build:dev": "tsc --watch --preserveWatchOutput",
+        "dev": "concurrently \"npm:build:dev\" \"npm:start:dev\""
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "@types/mongoose": "^5.10.3",
+        "concurrently": "^6.0.0",
         "cors": "^2.8.5",
         "dotenv": "^8.2.0",
         "express": "^4.17.1",
