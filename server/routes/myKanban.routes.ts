@@ -1,6 +1,5 @@
 const JWT = require("../JWT/JWT");
-import { ticketController } from '../controllers';
-import ProjectController from '../controllers/project.controller';
+import { ticketController, projectController } from '../controllers';
 
 module.exports = (app:any) => {
     app.get("/api/tickets/", JWT.checkJwt, JWT.JWTErrorHandler, ticketController.getAll);
@@ -13,10 +12,10 @@ module.exports = (app:any) => {
 
     app.delete("/api/tickets/delete/:id", ticketController.delete);
 
-    app.get("/api/projects/", JWT.checkJwt, JWT.JWTErrorHandler, ProjectController.getAllProjects)
-    app.get("/api/projects/:id", ProjectController.getProject)
+    app.get("/api/projects/", JWT.checkJwt, JWT.JWTErrorHandler, projectController.getAll)
+    app.get("/api/projects/:id", projectController.getOne)
 
-    app.post("/api/projects/new", ProjectController.createNewProject)
+    app.post("/api/projects/new", projectController.createNew)
 
-    app.post("/api/projects/add/ticket/:id", ProjectController.addTicketToProject)
+    app.post("/api/projects/add/ticket/:id", projectController.addTicketToProject)
 };

@@ -1,5 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import { IProject } from "../interfaces/interfaces";
+
 const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const ProjectSchema: Schema = new Schema({
@@ -30,4 +31,4 @@ const ProjectSchema: Schema = new Schema({
 
 const Project = mongoose.model<IProject>("ProjectSchema", ProjectSchema);
 
-module.exports = Project;
+export default Project;
