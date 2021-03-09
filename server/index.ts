@@ -1,6 +1,7 @@
 require('dotenv').config({ path: __dirname + '/.env' })
 import { PORT } from './config/constants';
 const express = require("express");
+import connectToDB from "./config/mongoose.config";
 const app = express();
 const cors = require('cors');
 

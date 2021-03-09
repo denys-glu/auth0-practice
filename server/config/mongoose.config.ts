@@ -1,14 +1,24 @@
-import mongoose from 'mongoose';
+import mongoose, { connect, ConnectOptions } from 'mongoose';
 
 const dbName = "auth0-practice";
 const dbPass = process.env.DB_PASSWORD;
 
-mongoose.set('useCreateIndex', true);
-mongoose.set('useFindAndModify', false);
-// mongoose.connect(`mongodb+srv://busabro:${dbPass}@myshinycluster.qqcs1.mongodb.net/${dbName}?retryWrites=true&w=majority`, {
-mongoose.connect(`mongodb://localhost/authpractice`, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
-    .then(() => console.log(`Established a connection to the database ${dbName}`))
-    .catch(err => console.log("Something went wrong when connecting to the database", err));
+// `mongodb+srv://busabro:${dbPass}@myshinycluster.qqcs1.mongodb.net/${dbName}?retryWrites=true&w=majority`
+const connectToDB = async () => {
+    try {
+        const mongoURI = `mongodb://localhost/authpractice`;
+        const options: ConnectOptions = {
+            useNewUrlParser: true,
+            useCreateIndex: true,
+            useFindAndModify: false,
+            useUnifiedTopology: true,
+        };
+        await connect(mongoURI, options);
+        console.log(`Established a connection to the database ${dbName}!`)
+    } catch(err) {
+        console.error("Something went wrong when connecting to the database", err);
+        process.exit(1);
+    }
+};
+
+export default connectToDB;
