@@ -4,31 +4,31 @@ import Ticket from "../models/ticket.model";
 import Project from "../models/project.model";
 
 export class ProjectController extends CrudController {
-    public getAll = (req, res) => {
+    public getAll = (req:Request, res:Response) => {
         Project.find({})
             .then(allProjects => res.json({ message: "Success", results: allProjects }))
             .catch(err => res.json({ message: "Error", error: err }));
     };
 
-    public getOne = (req, res) => {
+    public getOne = (req:Request, res:Response) => {
         Project.findById({ _id: req.params.id }).populate("tickets")
             .then(project => res.json({ message: "Success", results: project }))
             .catch(err => res.json({ message: "Error", error: err }));
     };
 
-    public createNew = (req, res) => {
+    public createNew = (req:Request, res:Response) => {
         Project.create(req.body)
             .then(newlyCreatedProject => res.json({ message: "Success", results: newlyCreatedProject }))
             .catch(err => res.json({ message: "Error", error: err }));
     };
 
-    public update = (req, res) => {
+    public update = (req:Request, res:Response) => {
         Project.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true, runValidators: true })
-            .then(ticket => res.json({ message: "Success", results: ticket }))
+            .then(project => res.json({ message: "Success", results: project }))
             .catch(err => res.json({ message: "Error", error: err }));
     };
-
-    public addTicketToProject = (req, res) => {
+    
+    public addTicket = (req:Request, res:Response) => {
         Ticket.create(req.body)
             .then(newTicket => {
                 Project.findByIdAndUpdate(
@@ -49,8 +49,8 @@ export class ProjectController extends CrudController {
             .catch(err => res.json({ message: "Error", error: err }));
     };
 
-    public delete = (req, res) => {
-        Ticket.deleteOne({ _id: req.params.id })
+    public delete = (req:Request, res:Response) => {
+        Project.deleteOne({ _id: req.params.id })
             .then(result => res.json({ message: "Success", results: result }))
             .catch(err => res.json({ message: "Error", error: err }));
     };
