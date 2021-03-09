@@ -5,7 +5,8 @@ const dbPass = process.env.DB_PASSWORD;
 
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
-mongoose.connect(`mongodb+srv://busabro:${dbPass}@myshinycluster.qqcs1.mongodb.net/${dbName}?retryWrites=true&w=majority`, {
+// mongoose.connect(`mongodb+srv://busabro:${dbPass}@myshinycluster.qqcs1.mongodb.net/${dbName}?retryWrites=true&w=majority`, {
+mongoose.connect(`mongodb://localhost/authpractice`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
